@@ -25,7 +25,7 @@ jobs:
       - name: Clear any cached node_modules
         run: rm -rf ./node_modules
 
-      - name: Install dependencies (with eslint)
+      - name: Install dependencies
         run: npm install
 
       - name: Fix permissions for node_modules/.bin
@@ -50,6 +50,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Verify Jest installation
+        run: |
+          ls -l node_modules/.bin
+          ls -l node_modules/jest/bin
 
       - name: Fix permissions for node_modules/.bin
         run: chmod -R 755 ./node_modules/.bin
