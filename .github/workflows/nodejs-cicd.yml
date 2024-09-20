@@ -22,19 +22,17 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Install dependencies
         run: npm install
 
+      - name: Fix permissions
+        run: chmod -R 755 ./node_modules/.bin
+
+      - name: Install ESLint (explicitly)
+        run: npm install eslint --save-dev
+
       - name: Run linter
-        run: npm run lint
+        run: npx eslint .
 
   test:
     name: Run tests
