@@ -22,16 +22,16 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Clear any cached node_modules
+        run: rm -rf ./node_modules
+
+      - name: Install dependencies (with eslint)
         run: npm install
 
-      - name: Fix permissions
+      - name: Fix permissions for node_modules/.bin
         run: chmod -R 755 ./node_modules/.bin
 
-      - name: Install ESLint (explicitly)
-        run: npm install eslint --save-dev
-
-      - name: Run linter
+      - name: Run ESLint
         run: npx eslint .
 
   test:
@@ -47,14 +47,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
@@ -75,14 +67,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
