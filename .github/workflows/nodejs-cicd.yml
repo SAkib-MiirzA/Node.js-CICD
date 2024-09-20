@@ -51,10 +51,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Verify Jest installation
+      - name: Debug Jest installation
         run: |
-          ls -l node_modules/.bin
-          ls -l node_modules/jest/bin
+          ls -la node_modules/.bin
+          ls -la node_modules/jest/bin
 
       - name: Fix permissions for node_modules/.bin
         run: chmod -R 755 ./node_modules/.bin
