@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-cicd",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest --passWithNoTests",
+    "build": "echo 'Building project...'"
+  },
+  "jest": {
+    "testMatch": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"]
+  },
+  "devDependencies": {
+    "eslint": "^9.10.0",
+    "jest": "^29.7.0"
+  }
+}
+
