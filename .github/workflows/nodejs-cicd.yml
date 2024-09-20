@@ -22,17 +22,16 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Clear any cached node_modules
-        run: rm -rf ./node_modules
-
-      - name: Install dependencies
-        run: npm install
+      - name: Clear node_modules and install dependencies
+        run: |
+          rm -rf ./node_modules
+          npm ci
 
       - name: Fix permissions for node_modules/.bin
         run: chmod -R 755 ./node_modules/.bin
 
       - name: Run ESLint
-        run: npx eslint .
+        run: npm run lint
 
   test:
     name: Run tests
@@ -48,19 +47,19 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies using npm ci
+        run: npm ci
 
       - name: Debug Jest installation
         run: |
           ls -la node_modules/.bin
-          ls -la node_modules/jest/bin
+          ls -la node_modules/jest/bin || echo "Jest binary not found"
 
       - name: Fix permissions for node_modules/.bin
         run: chmod -R 755 ./node_modules/.bin
 
-      - name: Run tests
-        run: npx jest --passWithNoTests
+      - name: Run Jest tests
+        run: npm test
 
   build:
     name: Build the application
@@ -76,8 +75,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies using npm ci
+        run: npm ci
 
       - name: Build the application
         run: npm run build
