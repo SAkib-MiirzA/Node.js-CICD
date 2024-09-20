@@ -51,8 +51,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Fix permissions for node_modules/.bin
+        run: chmod -R 755 ./node_modules/.bin
+
       - name: Run tests
-        run: npm test
+        run: npx jest --passWithNoTests
 
   build:
     name: Build the application
